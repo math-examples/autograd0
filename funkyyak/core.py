@@ -49,7 +49,7 @@ class CalculationTape(list):
 
     def hasmember(self, x):
         return isinstance(x, Node) and x.tape() is self
-
+# nodes -> tapes -> top tape
 def top_tape(args):
     tapes = [node.tape() for node in args if isinstance(node, Node)]
     return max(tapes, key=attrgetter('priority')) if tapes else None
