@@ -42,7 +42,7 @@ def primitive(fun, gradmaker):
     differentiable_fun = Differentiable(fun, forward_pass)
     return differentiable_fun
 
-# create a tape with a higher priority
+## create a tape with a higher priority
 class CalculationTape(list):
     def __init__(self, prev_tape):
         super(CalculationTape, self).__init__([])
@@ -51,7 +51,7 @@ class CalculationTape(list):
     def hasmember(self, x):
         return isinstance(x, Node) and x.tape() is self
 
-# nodes -> tapes -> top tape
+## nodes -> tapes -> top tape
 def top_tape(args):
     tapes = [node.tape() for node in args if isinstance(node, Node)]
     return max(tapes, key=attrgetter('priority')) if tapes else None
