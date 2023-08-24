@@ -37,7 +37,8 @@ def Differentiable(fun, forward_pass):
 
 def primitive(fun, gradmaker):
     def forward_pass(*args, **kwargs):
-        ans = differentiable_fun(*args, **kwargs)
+        ## ans = differentiable_fun(*args, **kwargs)
+        ans = fun(*args, **kwargs)
         return ans, gradmaker(ans, *args, **kwargs)
     differentiable_fun = Differentiable(fun, forward_pass)
     return differentiable_fun
