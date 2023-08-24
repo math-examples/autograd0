@@ -61,6 +61,7 @@ class SetterNode(Node):
     def zeros(self):
         raise Exception("Shouldn't get zeros of setter")
 
+## any type -> node type
 node_types = [FloatNode, ArrayNode, DictNode, ListNode, SetterNode]
 type_mappings = {}
 for node_type in node_types:
