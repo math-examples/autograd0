@@ -24,10 +24,10 @@ def grad(fun, argnum=0):
 def Differentiable(fun, forward_pass):
     def differentiable_fun(*args, **kwargs):
         tape = top_tape(args)
-        if tape is None:
-            return fun(*args, **kwargs)
+        if tape is None: ## all nodes unwrapped
+            return fun(*args, **kwargs) ## call original f
         else:
-            #＃ todo: check no node left in arg_vals
+            ## unwrap some nodes
             arg_vals = [arg.value if tape.hasmember(arg) else arg for arg in args]
             result, gradfuns = forward_pass(*arg_vals, **kwargs)
             parent_ops = [(gradfuns[i], parent)
@@ -38,8 +38,7 @@ def Differentiable(fun, forward_pass):
 
 def primitive(fun, gradmaker):
     def forward_pass(*args, **kwargs):
-        ### ans = differentiable_fun(*args, **kwargs)
-        ans = fun(*args, **kwargs)
+        ans = differentiable_fun(*args, **kwargs)
         return ans, gradmaker(ans, *args, **kwargs)
     differentiable_fun = Differentiable(fun, forward_pass)
     return differentiable_fun
