@@ -27,6 +27,7 @@ def Differentiable(fun, forward_pass):
         if tape is None:
             return fun(*args, **kwargs)
         else:
+            #＃ todo: check no node left in arg_vals
             arg_vals = [arg.value if tape.hasmember(arg) else arg for arg in args]
             result, gradfuns = forward_pass(*arg_vals, **kwargs)
             parent_ops = [(gradfuns[i], parent)
